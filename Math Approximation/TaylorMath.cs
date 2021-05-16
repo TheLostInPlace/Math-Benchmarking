@@ -2,7 +2,8 @@
 
 namespace Math_Approximation
 {
-    class TaylorMath
+	// Math from the BetterFPS Github Pull Request #74 https://github.com/Guichaguri/BetterFps/pull/74
+	class TaylorMath
     {
         float BF_SIN_TO_COS = (float)(Math.PI * 0.5);
         double TAU = Math.PI * 2;

@@ -2,6 +2,7 @@
 
 namespace Math_Approximation
 {
+    // Math taken from https://stackoverflow.com/questions/3249710/accuracy-of-math-sin-and-math-cos-in-c-sharp/11219270#11219270
     class ModifiedTaylors
     {
         const double π = Math.PI;
