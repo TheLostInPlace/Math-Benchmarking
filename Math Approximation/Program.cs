@@ -33,10 +33,13 @@ namespace Math_Approximation
             long taylorTime = 0;
             long taylorModifiedTime = 0;
             long csharpTime = 0;
+            long cordicTime = 0;
 
             TaylorMath taylorMath = new TaylorMath();
 
             ModifiedTaylors modtaylorMath = new ModifiedTaylors();
+
+            CordicMath cordicMath = new CordicMath();
 
             Task calculateTaylor = Task.Factory.StartNew(() =>
             {
@@ -96,6 +99,35 @@ namespace Math_Approximation
 
             }, new CancellationToken(false), TaskCreationOptions.LongRunning, TaskScheduler.Default);
 
+            Task calculateCordic = Task.Factory.StartNew(() =>
+            {
+
+                cordicMath.sin(0);
+                cordicMath.cos(0);
+                //Console.WriteLine("Taylor Benchmark Started");
+
+                for (int i = 0; i < maxLoops; i++)
+                {
+                    float angle = (float)convertRad(i % 360);
+                    long time;
+
+                    time = nanoTime();
+
+                    cordicMath.sin(angle);
+                    cordicMath.cos(angle);
+
+                    cordicTime += nanoTime() - time;
+
+                    if (DateTime.Now.Millisecond - startTime > maxTime)
+                    {
+                        break;
+                    }
+
+                    //Console.WriteLine($"Loop value {i}");
+                }
+
+            }, new CancellationToken(false), TaskCreationOptions.LongRunning, TaskScheduler.Default);
+
             Task calculateCSharp = Task.Factory.StartNew(() =>
             {
                 Math.Sin(0);
@@ -125,12 +157,13 @@ namespace Math_Approximation
             }, new CancellationToken(false), TaskCreationOptions.LongRunning, TaskScheduler.Default);
 
 
-            Task.WaitAll(new[] { calculateTaylor, calculateModifiedTaylor, calculateCSharp});
+            Task.WaitAll(new[] { calculateTaylor, calculateModifiedTaylor, calculateCordic, calculateCSharp});
 
             Dictionary<string, long> results = new Dictionary<string, long>();
 
             results.Add("Taylors", taylorTime);
             results.Add("Modified Taylors", taylorModifiedTime);
+            results.Add("Cordic", cordicTime);
             results.Add("CSharp", csharpTime);
 
             return results;
@@ -151,14 +184,14 @@ namespace Math_Approximation
                 results.Append($"Algorithm {dictionary.Key}, Time {dictionary.Value} ns \n ");
             }
 
-            results.AppendLine($"Larger time is {worstTime}, with difference of {max-min} ns");
+            results.AppendLine($"Larger time is {worstTime}, with difference of {max-min} nanoseconds or {(max-min)/1e+9} seconds");
 
             return results.ToString();
         }
 
         static void Main(string[] args)
         {
-            Console.WriteLine($"Starting benchmark: \n {showResult(startBenchmark(1_000_000, 10000))}");
+            Console.WriteLine($"Starting benchmark: \n {showResult(startBenchmark(1_000_000, 1_000_000))}");
         }
     }
 }
