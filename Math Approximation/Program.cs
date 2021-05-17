@@ -46,8 +46,6 @@ namespace Math_Approximation
                 taylorMath.sin(0);
                 taylorMath.cos(0);
 
-                //Console.WriteLine("Taylor Benchmark Started");
-
                 for (int i = 0; i < maxLoops; i++)
                 {
                     float angle = (float)convertRad(i % 360);
@@ -65,7 +63,6 @@ namespace Math_Approximation
                         break;
                     }
 
-                    //Console.WriteLine($"Loop value {i}");
                 }
 
             }, new CancellationToken(false), TaskCreationOptions.LongRunning, TaskScheduler.Default);
@@ -75,7 +72,6 @@ namespace Math_Approximation
 
                 modtaylorMath.Sin(0);
                 modtaylorMath.Cos(0);
-                //Console.WriteLine("Taylor Benchmark Started");
 
                 for (int i = 0; i < maxLoops; i++)
                 {
@@ -94,7 +90,6 @@ namespace Math_Approximation
                         break;
                     }
 
-                    //Console.WriteLine($"Loop value {i}");
                 }
 
             }, new CancellationToken(false), TaskCreationOptions.LongRunning, TaskScheduler.Default);
@@ -104,7 +99,6 @@ namespace Math_Approximation
 
                 csineMath.sin(0);
                 csineMath.cos(0);
-                //Console.WriteLine("Taylor Benchmark Started");
 
                 for (int i = 0; i < maxLoops; i++)
                 {
@@ -123,7 +117,6 @@ namespace Math_Approximation
                         break;
                     }
 
-                    //Console.WriteLine($"Loop value {i}");
                 }
 
             }, new CancellationToken(false), TaskCreationOptions.LongRunning, TaskScheduler.Default);
@@ -132,8 +125,6 @@ namespace Math_Approximation
             {
                 Math.Sin(0);
                 Math.Cos(0);
-
-                //Console.WriteLine("CSharp Benchmark Started");
 
                 for (int i = 0; i < maxLoops; i++)
                 {
